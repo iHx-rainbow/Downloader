@@ -1,4 +1,5 @@
 package Service;
+
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
@@ -6,11 +7,12 @@ import java.net.URL;
 
 import Model.DownloadInfo;
 
-public class DownloadThread extends Thread{
+public class DownloadThread extends Thread {
 
     private DownloadInfo info;
-    //private Downloader dl;
-    public DownloadThread(DownloadInfo info){
+
+    // private Downloader dl;
+    public DownloadThread(DownloadInfo info) {
         this.info = info;
     }
 
@@ -26,10 +28,10 @@ public class DownloadThread extends Thread{
             raf.seek(info.getStart());
             byte[] buffer = new byte[1024];
             int len = -1;
-            while ((len = is.read(buffer)) != -1){
-                raf.write(buffer, 0 , len);
-                //ui.updateBar(info.getIndex(), len,fileLength);
-                //dl.updateprocess(info.getIndex(), len);
+            while ((len = is.read(buffer)) != -1) {
+                raf.write(buffer, 0, len);
+                // ui.updateBar(info.getIndex(), len,fileLength);
+                // dl.updateprocess(info.getIndex(), len);
             }
             raf.close();
             is.close();
@@ -37,6 +39,5 @@ public class DownloadThread extends Thread{
             e.printStackTrace();
         }
     }
-    
 
 }

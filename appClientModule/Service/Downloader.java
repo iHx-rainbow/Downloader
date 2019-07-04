@@ -1,4 +1,5 @@
 package Service;
+
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -17,7 +18,7 @@ public class Downloader {
     private List<DownloadInfo> infos;
     private int count;
     private int fileLength;
-    
+
     public Downloader(String url, String local, int count, MainFrame ui) {
         this.url = url;
         this.local = local;
@@ -32,19 +33,19 @@ public class Downloader {
     /**
      * 准备下载
      */
-    private void prepareDownload(){
+    private void prepareDownload() {
         try {
-//          1、获取URL文件大小
+            // 获取URL文件大小
             URL u = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             fileLength = conn.getContentLength();
-//          2、创建本地文件并且设置大小
-            RandomAccessFile raf= new RandomAccessFile(local, "rw");
+            // 创建本地文件并且设置大小
+            RandomAccessFile raf = new RandomAccessFile(local, "rw");
             raf.setLength(fileLength);
             raf.close();
-//          3、计算下载信息集合
+            // 计算下载信息集合
             initDownloadInfos();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -60,9 +61,9 @@ public class Downloader {
             info.setIndex(i);
 
             info.setStart(i * block);
-            if (i != count - 1){
+            if (i != count - 1) {
                 info.setEnd((i + 1) * block - 1);
-            }else{
+            } else {
                 info.setEnd(fileLength);
             }
             infos.add(info);
@@ -71,21 +72,19 @@ public class Downloader {
     }
 
     public void startDownload() {
-        for (DownloadInfo info : infos){
+        for (DownloadInfo info : infos) {
             new DownloadThread(info).start();
         }
     }
-    
-	//int done=0;
-    //public void updateprocess(int index, int len) {
-    	//int[] threaddone= new int[count];
-    	//threaddone[index]=len+threaddone[index];
-    	//done=len+done;
-    	/*
-    	int[] jindu=new int[2];
-    	jindu[0]=done;
-    	jindu[1]=fileLength;
-    	*/
-    	//ui.updateProcess(fileLength);
-    //}
+
+    // int done=0;
+    // public void updateprocess(int index, int len) {
+    // int[] threaddone= new int[count];
+    // threaddone[index]=len+threaddone[index];
+    // done=len+done;
+    /*
+     * int[] jindu=new int[2]; jindu[0]=done; jindu[1]=fileLength;
+     */
+    // ui.updateProcess(fileLength);
+    // }
 }

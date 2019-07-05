@@ -125,7 +125,9 @@ public class NewDownload extends JFrame {
         			
         		}
         		*/
-        		SwingWorker newsw=new SwingWorker(url, local, threadsnum, mainframe,id,rownum);
+        		String p= mainframe.getjLabel3().getSelectedItem().toString();
+        		int priority=Integer.parseInt(p);
+        		SwingWorker newsw=new SwingWorker(url, local, threadsnum, mainframe,id,rownum, priority);
         		mainframe.getSw().add(newsw);
         		//System.out.println(mainframe.getSw().size());
         		mainframe.getjTable1().setValueAt("等待下载",rownum,1);

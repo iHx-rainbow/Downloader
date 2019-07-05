@@ -65,9 +65,9 @@ public class MainFrame extends JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JComboBox();
+        setjLabel3(new javax.swing.JComboBox());
         
-        jLabel3.setModel(new DefaultComboBoxModel(new String[] {"1","2","3"}));
+        getjLabel3().setModel(new DefaultComboBoxModel(new String[] {"1","2","3"}));
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,7 +93,7 @@ public class MainFrame extends JFrame {
 
         jLabel2.setText("进程数");
 
-        jButton6.setText("确定");
+        jButton6.setText("修改");
 
         //jLabel3.setText("0");
 
@@ -123,7 +123,7 @@ public class MainFrame extends JFrame {
                                                         .addPreferredGap(
                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(
-                                                                jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                getjLabel3(), javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout
                                                         .createSequentialGroup().addComponent(jLabel2)
@@ -143,7 +143,7 @@ public class MainFrame extends JFrame {
                         .addComponent(jButton2).addComponent(jButton3).addComponent(jButton4).addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel1)
-                        .addComponent(jLabel3))
+                        .addComponent(getjLabel3()))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel2)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -245,7 +245,7 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
             	int row=jTable1.getSelectedRow();
-            	int priority=Integer.parseInt(jLabel3.getSelectedItem().toString());
+            	int priority=Integer.parseInt(getjLabel3().getSelectedItem().toString());
             	sw.get(row).setPriority(priority);
 				mainframe.getjTable1().setValueAt(priority,row,4);
             	manager.res();
@@ -286,6 +286,16 @@ public class MainFrame extends JFrame {
 
 	public void setRows(int rows) {
 		this.rows = rows;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public JComboBox getjLabel3() {
+		return jLabel3;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void setjLabel3(JComboBox jLabel3) {
+		this.jLabel3 = jLabel3;
 	}
 
 

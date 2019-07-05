@@ -21,13 +21,13 @@ public class SwingWorker extends javax.swing.SwingWorker<Integer, Integer> {
 
 	
 
-	public SwingWorker(String url, String local, int threadsnum, MainFrame mainframe,int id, int rownum) {
+	public SwingWorker(String url, String local, int threadsnum, MainFrame mainframe,int id, int rownum,int priority) {
 		this.swid=id;
         this.url = url;
         this.local = local;
         this.threadsnum = threadsnum;
         this.mainframe = mainframe;
-        this.setPriority(1);
+        this.setPriority(priority);
         this.setRownum(rownum);
     }
 

@@ -2,13 +2,12 @@ package UI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
-import Service.Downloader;
 import Service.SwingWorker;
 
 public class NewDownload extends JFrame {
@@ -31,7 +30,7 @@ public class NewDownload extends JFrame {
 
     public NewDownload(int threadsnum, MainFrame mainframe) {
         setTitle("新建下载");
-        setSize(500, 250);
+        setSize(550, 250);
         setLocation(400, 300);
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -59,7 +58,9 @@ public class NewDownload extends JFrame {
         jTextArea1.setLineWrap(true);
 
         jTextArea1.setText("https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe");
-        jTextField1.setText("C:\\Users\\Admin\\Desktop\\download\\weixin.exe");
+        //jTextArea1.setText("https://download.ccleaner.com/ccsetup559.exe");
+        
+        jTextField1.setText("C:\\Users\\Admin\\Desktop\\download\\WeChatSetup.exe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,16 +101,64 @@ public class NewDownload extends JFrame {
                 // TODO Auto-generated method stub
                 // mf.total=0;
 
+            	
                 String url = jTextArea1.getText();
                 String local = jTextField1.getText();
-
+                DefaultTableModel dtm;
+                dtm =(DefaultTableModel) mainframe.getjTable1().getModel();
+                int id=mainframe.getId();
+                int rownum=mainframe.getRows();
+                Vector<Object> vData=new Vector<Object>();
+        		vData.add(rownum+1);
+        		mainframe.setId(id+1);
+        		mainframe.setRows(rownum+1);
+        		//vData.add(jTextField3.getText());
+        		//vData.add(jTextField2.getText());
+        		dtm.addRow(vData);
+        		/*
+        		for(int i=0;i<ID;i++)
+        		{
+        			if(mainframe.getjTable1().getValueAt(i,1)!="下载完成")
+        			{
+        				mainframe.getjTable1().setValueAt("等待下载",i,1);
+        			}
+        			
+        		}
+        		*/
+        		SwingWorker newsw=new SwingWorker(url, local, threadsnum, mainframe,id,rownum);
+        		mainframe.getSw().add(newsw);
+        		//System.out.println(mainframe.getSw().size());
+        		mainframe.getjTable1().setValueAt("等待下载",rownum,1);
+        		mainframe.manager.add(newsw);
+        		//newsw.execute();
+        		/*
+        		xuhao++;
+        		System.out.println(xuhao);
+        		f[ID].setPriority(ID);
+			    manager.add(f[ID]);
+			    manager.re();
+			    manager.execute();
+			    ID++;
+			    */
+                
+                
+                
+                
+                
+                
                 // int count = downcount;
-                Downloader downloader = new Downloader(url, local, threadsnum, mainframe);
+                
                 // List<DownloadInfo> infos = downloader.getInfos();
                 // mainframe.addBars(infos); //动态添加进度条
 
-                downloader.startDownload(); // 开始下载
                 
+                
+                
+                
+                /*
+        		Downloader downloader = new Downloader(url, local, threadsnum, mainframe);
+                downloader.startDownload(); // 开始下载
+                */
                 
                 
                 

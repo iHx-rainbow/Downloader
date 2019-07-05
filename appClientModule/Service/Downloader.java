@@ -18,10 +18,11 @@ public class Downloader {
     private List<DownloadInfo> infos;
     private int count;
     private int fileLength;
+	private DownloadThread[] thread=new DownloadThread[10];
 
     public Downloader(String url, String local, int count, MainFrame ui) {
         this.url = url;
-        this.local = local;
+        this.setLocal(local);
         this.count = count;
         prepareDownload();
     }
@@ -40,7 +41,7 @@ public class Downloader {
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             fileLength = conn.getContentLength();
             // 创建本地文件并且设置大小
-            RandomAccessFile raf = new RandomAccessFile(local, "rw");
+            RandomAccessFile raf = new RandomAccessFile(getLocal(), "rw");
             raf.setLength(fileLength);
             raf.close();
             // 计算下载信息集合
@@ -57,7 +58,7 @@ public class Downloader {
         for (int i = 0; i < count; i++) {
             info = new DownloadInfo();
             info.setURL(url);
-            info.setLocal(local);
+            info.setLocal(getLocal());
             info.setIndex(i);
 
             info.setStart(i * block);
@@ -72,10 +73,48 @@ public class Downloader {
     }
 
     public void startDownload() {
+    	int i=0;
         for (DownloadInfo info : infos) {
-            new DownloadThread(info).start();
+        	thread[i]=new DownloadThread(info);
+        	thread[i].start();
+        	i++;
         }
     }
+
+	public int getTotal() {
+		// TODO Auto-generated method stub
+		int all=0;
+		for(int i = 0; i < count; i++){
+			all+=thread[i].getThreadTotal();
+		}
+		int prent=(int)((double)all*100/(double)fileLength);
+		//System.out.println("百分比："+prent);
+		return prent;
+	}
+
+	public void suspend() {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < count; i++){
+			thread[i].setSuspend(true);
+			//System.out.println(thread[i].getInfo().getIndex());
+		}
+	}
+
+	public void resume() {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < count; i++){
+			thread[i].setSuspend(false);
+			thread[i].setResume();
+		}
+	}
+
+	public String getLocal() {
+		return local;
+	}
+
+	public void setLocal(String local) {
+		this.local = local;
+	}
 
     // int done=0;
     // public void updateprocess(int index, int len) {

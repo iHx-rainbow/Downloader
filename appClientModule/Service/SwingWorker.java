@@ -37,6 +37,7 @@ public class SwingWorker extends javax.swing.SwingWorker<Integer, Integer> {
 	protected Integer doInBackground() throws Exception {
 		// TODO Auto-generated method stub
 		mainframe.getjTable1().setValueAt(local,swid,3);
+		mainframe.getjTable1().setValueAt(priority,swid,4);
 		downloader = new Downloader(url, local, threadsnum, mainframe);
 		downloader.startDownload(); // 开始下载
 		mainframe.getjTable1().setValueAt("正在下载",swid,1);

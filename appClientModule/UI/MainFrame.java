@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import Service.SwingWorker;
 import Service.TaskManager;
 
+@SuppressWarnings("unused")
 public class MainFrame extends JFrame {
     /**
      * 
@@ -31,7 +32,8 @@ public class MainFrame extends JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private JComboBox jLabel3;
+    @SuppressWarnings("rawtypes")
+	private JComboBox jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
@@ -74,7 +76,7 @@ public class MainFrame extends JFrame {
         getjTable1().setModel(
                 new javax.swing.table.DefaultTableModel(
                         new Object[][] {},
-                        new String[] { "下载队列", "下载状态״̬", "下载进度", "下载地址" }));
+                        new String[] { "下载队列", "下载状态״̬", "下载进度", "下载地址", "优先级" }));
         jScrollPane1.setViewportView(getjTable1());
 
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(300);
@@ -243,7 +245,9 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
             	int row=jTable1.getSelectedRow();
-            	sw.get(row).setPriority(Integer.parseInt(jLabel3.getSelectedItem().toString()));
+            	int priority=Integer.parseInt(jLabel3.getSelectedItem().toString());
+            	sw.get(row).setPriority(priority);
+				mainframe.getjTable1().setValueAt(priority,row,4);
             	manager.res();
             }
 

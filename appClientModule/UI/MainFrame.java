@@ -245,10 +245,14 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
             	int row=jTable1.getSelectedRow();
-            	int priority=Integer.parseInt(getjLabel3().getSelectedItem().toString());
-            	sw.get(row).setPriority(priority);
-				mainframe.getjTable1().setValueAt(priority,row,4);
-            	manager.res();
+            	//System.out.println(row);
+            	if(row!=-1) {
+                	int priority=Integer.parseInt(getjLabel3().getSelectedItem().toString());
+                	sw.get(row).setPriority(priority);
+    				mainframe.getjTable1().setValueAt(priority,row,4);
+                	manager.res();
+            	}
+
             }
 
         });

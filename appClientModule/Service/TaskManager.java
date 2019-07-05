@@ -4,8 +4,12 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+
+
 public class TaskManager {
-	SwingWorker[] running = new SwingWorker[3];
+	SwingWorker[] running = new SwingWorker[1];
+	int runnum = running.length;
+	
 	
 	//private ArrayList<SwingWorker> sw=new ArrayList<SwingWorker>();
 	Comparator<SwingWorker> compare = new Comparator<SwingWorker>() {
@@ -37,7 +41,7 @@ public class TaskManager {
 	
 	public void regenerate()
 	{
-		for(int i=0;i<3;i++)
+		for(int i=0;i<runnum;i++)
 		{
 			if(running[i]==null)
 			{
@@ -53,7 +57,7 @@ public class TaskManager {
 	
 	public void execute()
 	{
-		for(int i=0;i<3;i++)
+		for(int i=0;i<runnum;i++)
 		{
 			if(sw_queue.peek()==null)
 			{
@@ -70,7 +74,7 @@ public class TaskManager {
 
 
 	public void delete(SwingWorker sw) {
-		for(int i=0;i<3;i++)
+		for(int i=0;i<runnum;i++)
 		{
 			if(running[i]==sw)
 			{
@@ -85,7 +89,7 @@ public class TaskManager {
 		
 	}
 	public void suspend(SwingWorker sw){
-		for(int i=0;i<3;i++)
+		for(int i=0;i<runnum;i++)
 		{
 			
 			if(running[i]==sw)
@@ -101,7 +105,7 @@ public class TaskManager {
 	}
 
 	public void finish(SwingWorker sw) {
-		for(int i=0;i<3;i++)
+		for(int i=0;i<runnum;i++)
 		{
 			if(running[i]==sw)
 			{

@@ -2,6 +2,7 @@ package UI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Vector;
 
 import javax.swing.JFileChooser;
@@ -60,7 +61,7 @@ public class NewDownload extends JFrame {
         jTextArea1.setText("https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe");
         //jTextArea1.setText("https://download.ccleaner.com/ccsetup559.exe");
         
-        jTextField1.setText("C:\\Users\\Admin\\Desktop\\download\\WeChatSetup.exe");
+        //jTextField1.setText("C:\\Users\\Admin\\Desktop\\download\\WeChatSetup.exe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,11 +182,60 @@ public class NewDownload extends JFrame {
                 choose.setAcceptAllFileFilterUsed(false);
                 choose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY );
                 choose.showOpenDialog(null);
-                String savepath= choose.getSelectedFile().getPath();
+                String savepath = null;
+                
                 String url = jTextArea1.getText();
-                String[] splitstr=url.split("/");
-                String path=splitstr[splitstr.length-1];
-                jTextField1.setText(savepath+"\\"+path);
+                String[] spliturl=url.split("/");
+                String filename=spliturl[spliturl.length-1];
+                //System.out.println(filename);
+                
+                try {
+                	savepath= choose.getSelectedFile().getPath();
+                }
+                catch(Exception e1){
+                	//e1.printStackTrace();
+                	savepath="C:\\Users\\Admin\\Desktop\\download";
+                }
+
+                
+                
+                String local=savepath+"\\"+filename;
+				File file=new File(local);
+				int i=1;
+				while(file.exists()){
+					System.out.println(filename);
+					
+					int one = filename.lastIndexOf(".");
+					
+					String newfilename=filename.substring(0, one)+i+"."+filename.substring((one+1),filename.length());
+					System.out.println(newfilename);
+					/*
+	                String[] splitfilename=filename.split(".");
+	                
+	                System.out.println(splitfilename.length);
+	                
+	                String houzhui=splitfilename[splitfilename.length-1];
+	                splitfilename[0]=splitfilename[0]+i;
+	                
+	                String newfilename=splitfilename[0]+houzhui;
+	                */
+					
+					local=savepath+"\\"+newfilename;
+	                file=new File(local);
+	                System.out.println(local);
+	                i++;
+				}
+				
+				jTextField1.setText(local);
+				
+
+                
+
+                
+
+
+
+                
             }
         });
         

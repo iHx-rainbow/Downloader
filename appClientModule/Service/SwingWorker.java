@@ -36,6 +36,19 @@ public class SwingWorker extends javax.swing.SwingWorker<Integer, Integer> {
 	@Override
 	protected Integer doInBackground() throws Exception {
 		// TODO Auto-generated method stub
+		/*
+		File file = new File(local);
+		if (!file.exists()) {
+			mainframe.getjTable1().setValueAt(local,swid,3);
+		}
+		else {
+			System.out.println(local);
+			String[] splitstr=local.split("\\");
+            String filename=splitstr[splitstr.length-1];
+            System.out.println(filename);
+			//int index=local.lastIndexOf(filename);
+		}
+		*/
 		mainframe.getjTable1().setValueAt(local,swid,3);
 		mainframe.getjTable1().setValueAt(priority,swid,4);
 		downloader = new Downloader(url, local, threadsnum, mainframe);

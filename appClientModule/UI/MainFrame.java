@@ -50,7 +50,7 @@ public class MainFrame extends JFrame {
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public MainFrame() {
         setTitle("多线程下载器");
-        setSize(600, 400);
+        setSize(700, 400);
         setLocation(400, 200);
 
         // jp = new JPanel();
@@ -79,7 +79,7 @@ public class MainFrame extends JFrame {
                         new String[] { "下载队列", "下载状态״̬", "下载进度", "下载地址", "优先级" }));
         jScrollPane1.setViewportView(getjTable1());
 
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(300);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(400);
         
         jButton2.setText("暂停");
 

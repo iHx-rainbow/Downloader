@@ -12,7 +12,7 @@ public class DownloadThread extends Thread {
     private DownloadInfo info;
 	private int total;
 	volatile boolean stop = false;
-	volatile boolean suspend = false;
+	volatile boolean suspend = false; //暂停标识
 	
     // private Downloader dl;
     public DownloadThread(DownloadInfo info) {
